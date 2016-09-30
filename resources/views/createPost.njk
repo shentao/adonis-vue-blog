@@ -1,0 +1,28 @@
+{% extends 'master' %}
+
+{% block content %}
+  {% if old('errors') %}
+    <div class="alert alert-danger">
+      {% for error in old('errors') %}
+        <li> {{ error.message }} </li>
+      {% endfor %}
+    </div>
+  {% endif %}
+  {{ form.open({action: 'PostController.store'}) }}
+
+    {{ csrfField }}
+
+    <fieldset class="form-group">
+      {{ form.label('Post Title') }}
+      {{ form.text('title', old('title'), { class: 'form-control' }) }}
+    </fieldset>
+
+    <fieldset class="form-group">
+      {{ form.label('Description') }}
+      {{ form.textarea('content', old('content'), { class: 'form-control' }) }}
+    </fieldset>
+
+    {{ form.submit('Publish', 'publish', { class: 'btn btn-primary btn-block' }) }}
+
+  {{ form.close() }}
+{% endblock %}
